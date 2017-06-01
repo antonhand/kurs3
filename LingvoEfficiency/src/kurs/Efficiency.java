@@ -76,10 +76,10 @@ public class Efficiency {
 					cor = tmp;
 				}
 				if(DEBUG_LINGVO){
-					notAcc.add("частично верно: " + correct.getLexema() + " " + correct.getGramems().toString() + " " + norms[i] + " " + gr.toString());
+					notAcc.add("С‡Р°СЃС‚РёС‡РЅРѕ РІРµСЂРЅРѕ: " + correct.getLexema() + " " + correct.getGramems().toString() + " " + norms[i] + " " + gr.toString());
 				}
 			} else if(DEBUG_LINGVO){
-				notAcc.add("неверно: " + correct.getLexema() + " " + correct.getGramems().toString() + " " + norms[i] + " " + gr.toString());
+				notAcc.add("РЅРµРІРµСЂРЅРѕ: " + correct.getLexema() + " " + correct.getGramems().toString() + " " + norms[i] + " " + gr.toString());
 			}
     	}
 		if(DEBUG_LINGVO) {
@@ -103,7 +103,7 @@ public class Efficiency {
         int corL = 0;
 		try {
 	        if(process == null){
-	        	process = new ProcessBuilder("D:\\Курсовая\\mystem\\mystem.exe","-ni", "--format=xml"/*, "-e", "cp1251"*/).start();
+	        	process = new ProcessBuilder("D:\\РљСѓСЂСЃРѕРІР°СЏ\\mystem\\mystem.exe","-ni", "--format=xml"/*, "-e", "cp1251"*/).start();
 	        }
 	        
 	        BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), "utf-8"));
@@ -144,8 +144,8 @@ public class Efficiency {
 	        		
 	        		if(gr.contains("APRO") || gr.contains("ANUM")){
     					gr.add("A");
-    					if(!gr.contains("сокр")){
-    						gr.add("полн");
+    					if(!gr.contains("СЃРѕРєСЂ")){
+    						gr.add("РїРѕР»РЅ");
     					}
 	        		}
 	        		
@@ -158,10 +158,10 @@ public class Efficiency {
         					cor = tmp;
         				}
         				if(DEBUG_MYSTEM){
-        					notAcc.add("частично верно: " + correct.getLexema() + " " + correct.getGramems().toString() + " " + gr.toString());
+        					notAcc.add("С‡Р°СЃС‚РёС‡РЅРѕ РІРµСЂРЅРѕ: " + correct.getLexema() + " " + correct.getGramems().toString() + " " + gr.toString());
         				}
         			} else if(DEBUG_MYSTEM) {
-	        			notAcc.add("неверно: " + correct.getLexema() + " " + correct.getGramems().toString() + " " + gr.toString());
+	        			notAcc.add("РЅРµРІРµСЂРЅРѕ: " + correct.getLexema() + " " + correct.getGramems().toString() + " " + gr.toString());
 	        		}
 	            }
 	            xmlr.next();
@@ -204,11 +204,11 @@ public class Efficiency {
 			while (xmlr.hasNext()) {
                 
                 if(xmlr.isStartElement() && xmlr.getName().toString() == "tfr"){
-                	String word = xmlr.getAttributeValue(1).replace('ё', 'е');
+                	String word = xmlr.getAttributeValue(1).replace('С‘', 'Рµ');
                 	xmlr.next();
                 	xmlr.next();
                 	MorphoToken correct = new MorphoToken();
-                	correct.setLexema(xmlr.getAttributeValue(1).toLowerCase().replace('ё', 'е'));
+                	correct.setLexema(xmlr.getAttributeValue(1).toLowerCase().replace('С‘', 'Рµ'));
                 	xmlr.next();
                 	Set<String> gramems = new HashSet<String>();
                 	while(xmlr.isStartElement() && xmlr.getName().toString() == "g"){
@@ -227,7 +227,7 @@ public class Efficiency {
                 	
                 	for(String i : attr.getParts()){
                 		//System.out.println(i);
-        				//if(stm.contains("прич")) System.out.println("kk");
+        				//if(stm.contains("РїСЂРёС‡")) System.out.println("kk");
         				if(gramems.contains(i)){
         					correct.setPart(i);
         					//System.out.println("d " + i);
@@ -253,7 +253,7 @@ public class Efficiency {
 		}
 		
 		
-		System.out.println("Лемматизация");
+		System.out.println("Р›РµРјРјР°С‚РёР·Р°С†РёСЏ");
 		System.out.println("\tLingvo\tMystem");
 		for(String i : attr.getParts()){
 			System.out.println(i + "\t" + new BigDecimal(countCorrLingvoLex.get(i) * 100.0 / countAll.get(i)).setScale(2, RoundingMode.HALF_UP).doubleValue() + "%\t" + new BigDecimal(countCorrMystemLex.get(i) * 100.0 / countAll.get(i)).setScale(2, RoundingMode.HALF_UP).doubleValue() + "%");
@@ -265,7 +265,7 @@ public class Efficiency {
 		}
 		
 		System.out.println();
-		System.out.println("Разбор");
+		System.out.println("Р Р°Р·Р±РѕСЂ");
 		System.out.println("\tLingvo\tMystem");
 		for(String i : attr.getParts()){
 			System.out.println(i + "\t" + new BigDecimal(countCorrLingvoGr.get(i) * 100.0 / countAll.get(i)).setScale(2, RoundingMode.HALF_UP).doubleValue() + "%\t" + new BigDecimal(countCorrMystemGr.get(i) * 100.0 / countAll.get(i)).setScale(2, RoundingMode.HALF_UP).doubleValue() + "%");

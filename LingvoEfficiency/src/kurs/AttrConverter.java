@@ -25,14 +25,14 @@ public class AttrConverter {
 	public AttrConverter()
 	{
 		parts = new HashSet<>();
-		parts.addAll(Arrays.asList("S","A","V","прич","деепр","NUM","ADV","Other"));
+		parts.addAll(Arrays.asList("S","A","V","РїСЂРёС‡","РґРµРµРїСЂ","NUM","ADV","Other"));
 		
 		sourceToMystem = new HashMap<>();
 		lingvoToMystem = new HashMap<>();
 		mystemSet = new HashSet<>();
 		BufferedReader in;
 		try {
-	        in = new BufferedReader(new InputStreamReader(new FileInputStream("сопоставление.csv"), "utf-8"));
+	        in = new BufferedReader(new InputStreamReader(new FileInputStream("СЃРѕРїРѕСЃС‚Р°РІР»РµРЅРёРµ.csv"), "utf-8"));
 			String source, lingvo, s;
 			
 			while((s = in.readLine()) != null){
